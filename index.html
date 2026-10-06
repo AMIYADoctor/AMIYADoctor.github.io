@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人主页</title>
+    <style>
+        /* ========== 基础设置 ========== */
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: "微软雅黑", sans-serif;
+            background-color: #ffffff; 
+            scroll-behavior: smooth; /* 关键：让滚轮滚动或点击跳转时平滑过渡 */
+        }
+
+        /* ========== 1. 封面区设置 ========== */
+        .hero-section {
+            height: 100vh; /* 高度占满整个屏幕 */
+            width: 100%;
+            position: relative; /* 方便内部绝对定位 */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer; /* 鼠标放上去显示手型，提示可以点击 */
+        }
+
+        /* 封面的背景图片 */
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* 图片放在最底层 */
+        }
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 保证图片铺满且不变形 */
+        }
+
+        /* 封面文字容器 */
+        .hero-text {
+            text-align: center;
+            color: #ffffff; /* 白色字 */
+            z-index: 1;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* 加一点阴影让白字在浅色图片上也看得清 */
+            animation: fadeIn 1.5s ease-in-out; /* 加个淡入动画显得高级 */
+        }
+        
+        /* 第一行标题 */
+        .hero-text h1 {
+            font-size: 48px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+        
+        /* 第二行标题 */
+        .hero-text h2 {
+            font-size: 28px;
+            font-weight: normal;
+            letter-spacing: 2px;
+            margin-top: 0;
+            border-bottom: none; /* 去掉全局h2的下划线 */
+            color: #ffffff;
+        }
+
+        /* 向下滚动的提示箭头 */
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            font-size: 18px;
+            color: #ffffff;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+            animation: bounce 2s infinite;
+        }
+
+        /* 淡入动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* 箭头跳动动画 */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* ========== 2. 下方内容区设置 ========== */
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 0; /* 上下留点空间 */
+        }
+
+        /* 块（卡片）设置 */
+        .card {
+            background-color: #ffffff; 
+            padding: 30px; 
+            border-radius: 15px; 
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); 
+            border: 1px solid #f0f0f0; 
+            margin-bottom: 20px; 
+            text-align: left; 
+        }
+
+        h2 {
+            color: #333;
+            font-size: 22px;
+            margin-top: 0; 
+            margin-bottom: 15px;
+            border-bottom: 2px solid #007bff; 
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        p {
+            color: #555;
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        img.avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; 
+            object-fit: cover;
+            object-position: center 20%; 
+            display: block;
+            margin-bottom: 20px;
+            border: 3px solid #f0f0f0;
+        }
+
+        /* 表格样式 */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 15px;
+        }
+        table, th, td {
+            border: 1px solid #eee;
+            padding: 12px;
+            text-align: left;
+        }
+        th { 
+            background-color: #fafafa; 
+            width: 30%;
+            color: #333;
+        }
+        td { color: #555; }
+
+        /* 超链接样式 */
+        .link-box {
+            margin-top: 15px;
+        }
+        .link-box a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: bold;
+        }
+        .link-box a:hover { 
+            color: #0056b3; 
+            text-decoration: underline; 
+        }
+        
+        /* 博客按钮特殊样式 */
+        .blog-btn {
+            display: inline-block;
+            margin-top: 15px;
+            background-color: #007bff;
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none !important;
+            font-weight: bold;
+        }
+        .blog-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= 1. 全屏封面页 ================= -->
+    <div class="hero-section" onclick="window.scrollTo({top: window.innerHeight, behavior: 'smooth'})">
+        <div class="hero-bg">
+            <!-- 🚨 请把这行 src 换成你真实的高清背景图路径 🚨 -->
+            <img src="images/cover.jpg" alt="封面背景">
+        </div>
+        
+        <div class="hero-text">
+            <!-- 按照你的要求，两行白色文字 -->
+            <h1>计算机网络作业</h1>
+            <h2>黄耔乐 PB24000352</h2>
+        </div>
+
+        <!-- 提示用户向下滚动 -->
+        <div class="scroll-hint">
+            ↓ 向下滚动或点击进入
+        </div>
+    </div>
+
+    <!-- ================= 2. 下方原有的卡片内容区 ================= -->
+    <div class="container">
+        
+        <!-- 第一块：自我简介 -->
+        <div class="card">
+            <h2>自我简介</h2>
+            <!-- 记得把这里的图片路径换成你的头像 -->
+            <img src="images/hzl.jpg" alt="我的照片" class="avatar">
+            <p>你好！我是黄耔乐（PB24000352），目前就读于中国科学技术大学。我是一个热爱编程、对计算机网络充满好奇的新手。</p>
+            <p>在课余时间，我喜欢折腾各种技术，希望通过这门课能掌握网页制作和网络协议的基本知识。</p>
+        </div>
+
+        <!-- 第二块：家乡简介 -->
+        <div class="card">
+            <h2>家乡简介</h2>
+            <p>我的家乡是一座美丽的城市。这里有悠久的历史文化，也有让人流连忘返的自然风光。</p>
+            <p>（这里请你替换成你家乡的真实介绍，比如：特色小吃、著名景点、风土人情等。写个一两段即可。）</p>
+        </div>
+
+        <!-- 第三块：生活分享 -->
+        <div class="card">
+            <h2>生活分享</h2>
+            <p>平时我喜欢听音乐、看电影，周末也会约朋友一起打羽毛球。</p>
+            <p>在学习上，我最近在自学 HTML 和 CSS，感受到了前端开发的乐趣。这就是我制作的第一张个人主页！</p>
+        </div>
+
+        <!-- 第四块：基本信息（表格） -->
+        <div class="card">
+            <h2>基本信息</h2>
+            <table>
+                <tr>
+                    <th>姓名</th>
+                    <td>黄耔乐</td>
+                </tr>
+                <tr>
+                    <th>学号</th>
+                    <td>PB24000352</td>
+                </tr>
+                <tr>
+                    <th>爱好</th>
+                    <td>写代码、听音乐</td>
+                </tr>
+                <tr>
+                    <th>联系邮箱</th>
+                    <td>xxx@mail.ustc.edu.cn</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 第五块：友情链接与博客 -->
+        <div class="card">
+            <h2>友情链接与博客</h2>
+            <p>这里是我常去的网站和我写的博客：</p>
+            <div class="link-box">
+                <a href="https://www.ustc.edu.cn/" target="_blank">中国科学技术大学</a>
+                <a href="https://www.github.com" target="_blank">GitHub</a>
+                <a href="https://www.bilibili.com" target="_blank">Bilibili</a>
+            </div>
+            <div>
+                <a href="blog.html" target="_blank" class="blog-btn">📖 点击阅读我的第一篇博客</a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
