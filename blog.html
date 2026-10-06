@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的第一篇博客</title>
+    <style>
+        body { 
+            font-family: "微软雅黑", sans-serif; 
+            background-color: #ffffff; 
+            margin: 0; 
+            padding: 40px 0;
+            line-height: 1.8;
+        }
+        .blog-box { 
+            max-width: 700px; 
+            margin: 0 auto; 
+            background: white; 
+            padding: 40px; 
+            border-radius: 15px; 
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08); 
+            border: 1px solid #f0f0f0;
+        }
+        h1 { 
+            color: #333; 
+            text-align: center; 
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .date { 
+            text-align: center; 
+            color: #888; 
+            font-size: 14px; 
+            margin-bottom: 30px; 
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 20px;
+        }
+        p { 
+            color: #555; 
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-indent: 2em; 
+        }
+        /* 返回主页按钮 */
+        .back-btn {
+            display: block;
+            width: 150px;
+            margin: 40px auto 0;
+            text-align: center;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-btn:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="blog-box">
+        <h1>计算机网络实验一：静态网页制作简介</h1>
+        <div class="date">发布于：2026年10月6日 | 作者：黄耔乐PB24000352</div>
+        <p><strong>一、实验背景</strong></p>
+        <p>本次计算机网络实验一的核心任务是掌握静态网页的制作方法，了解 HTML 与 CSS 的基本语法，并熟悉将网页部署至云端服务器的完整流程。作为初学者，这是我第一次亲手构建并发布网页，旨在通过实践加深对网络协议和前端基础的理解。</p>
+        <p><strong>二、实验内容与介绍</strong></p>
+        <p>在网页结构设计上，我采用了 HTML5 标准，利用 &lt;div&gt; 标签进行了模块化布局。网页内容划分为自我简介、家乡简介、生活分享、基本信息以及友情链接等块状卡片，并利用 CSS 添加了圆角、阴影以及平滑滚动效果。首屏设计为全屏封面，配以白色标题文字，底部通过超链接成功发布了这篇博客。</p>
+        <p>在云端部署方面，我将网页托管至 GitHub Pages。通过建立与用户名匹配的仓库（AMIYADoctor.github.io）并上传所有 HTML 文件与图片资源，实现了网页的公网访问。实验过程中，我学会了使用 F12 开发者工具排查图片 404 问题，深刻体会了从本地开发到云端部署的完整链路。</p>
+        
+        <a href="index.html" class="back-btn">返回个人主页</a>
+    </div>
+</body>
+</html>
